@@ -26,7 +26,7 @@ describe('Math operations test', () => {
         });
     });
 
-    describe.only('isEven', () => {
+    describe('isEven', () => {
         test('should return true for number 4', () => {
             expect(mathOperations.isEven(4)).toBe(true);
         });

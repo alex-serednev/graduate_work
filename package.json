@@ -4,7 +4,9 @@
   "description": "automated tests written using JS and some other libraries",
   "main": "index_ts.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test_jest": "jest --config='part_1/jest.config.js'",
+    "test_superagent": "jest --config='part_2/jest.config.js'"
   },
   "author": "Aleksei Serednev",
   "license": "ISC",

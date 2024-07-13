@@ -2,33 +2,35 @@ import { expect, type Locator, type Page } from '@playwright/test';
 import { AccountPage } from './accountPage';
 import * as funct from '../../utils/functions';
 
-export class RegisterPage extends AccountPage {
+export class RegisterPage {
     readonly page: Page;
     public url: string;
-    private emailField: Locator;
-    private passwordField: Locator;
-    private loginButton: Locator;
-    private greetingAfterLogin: Locator;
+    private enterEmailField: Locator;
+    private enterPasswordField: Locator;
+    // private enterLoginButton: Locator;
+    // private greetingAfterLogin: Locator;
     public createNewAccButton: Locator;
     public nameField: Locator;
     public surnameField: Locator;
     public createMyAccButton: Locator;
+    public incorrectDataError: Locator;
 
         private validEmail: string;
         private validPass: string;
         private welcomeMessage: string;
         public userName: string;
         public userSurname: string;
+        public invalidEmail: string;
+        public invalidPass: string;
         
 
     constructor(page: Page) {
-        super(page);
         this.page = page;
-        this.emailField = page.locator('input[name="customer[email]"]');
-        this.passwordField = page.locator('input[name="customer[password]"]');
-        this.loginButton = page.locator('//*[@id="customer_login"]/button'); 
+        this.enterEmailField = page.locator('input[name="customer[email]"]');
+        this.enterPasswordField = page.locator('input[name="customer[password]"]');
+        // this.enterLoginButton = page.locator('//*[@id="customer_login"]/button'); 
         this.incorrectDataError = page.locator('p[class="Form__Alert Alert Alert--error"]');
-        this.greetingAfterLogin = page.locator('p.SectionHeader__Description');
+        // this.greetingAfterLogin = page.locator('p.SectionHeader__Description');
         this.createNewAccButton = page.locator('');
         this.nameField = page.locator('input[name="customer[first_name]"]');
         this.surnameField = page.locator('input[name="customer[last_name]"]');
@@ -55,14 +57,14 @@ export class RegisterPage extends AccountPage {
 
     async enterEmail () {
         let email: string = funct.createTestEmail();
-        await this.emailField.click();
-        await this.emailField.fill(email);
+        await this.enterEmailField.click();
+        await this.enterEmailField.fill(email);
     }
 
     async enterPassword () {
         let pass: string = funct.generateRandomPass();
-        await this.passwordField.click();
-        await this.passwordField.fill(pass)
+        await this.enterPasswordField.click();
+        await this.enterPasswordField.fill(pass)
     }
 
     async pressCreateAccount () {

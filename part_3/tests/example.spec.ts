@@ -1,80 +1,211 @@
 import { test, expect } from '@playwright/test';
 
-import { BasePage } from '../src/page-objects/basePage';
 import { HeaderPage } from '../src/page-objects/headerPage';
 import { HomePage } from '../src/page-objects/homePage';
-import { KitchenwarePage } from '../src/page-objects/kitchenwarePage'
-import { Basket } from '../src/page-objects/basketPage'
+import { KitchenwarePage } from '../src/page-objects/kitchenwarePage';
+import { Basket } from '../src/page-objects/basketPage';
+import { AccountPage } from '../src/page-objects/accountPage';
+import { TablewarePage } from '../src/page-objects/tablewarePage';
+import { SearchPage } from '../src/page-objects/searchPage';
+import { ProductPage } from '../src/page-objects/productPage';
+import { KnivesPage } from '../src/page-objects/knivesPage';
+import { BlogPage } from '../src/page-objects/blogPage';
+import { RegisterPage } from '../src/page-objects/registerPage';
+import { CraftsmenPage } from '../src/page-objects/craftsmenPage';
+import { FiltersPage } from '../src/page-objects/filtersPage';
+import { FooterPage } from '../src/page-objects/footerPage';
 
 test.describe.configure({mode: "serial", retries: 0})
 test.describe('Finding and saving product', () => {
 
-    test.beforeEach(async ({ page }) => {
-      console.log('Running tests:');
-    });
+    test('Failed login attempt', async ({ page }) => {
+      const homePage = new HomePage(page);
+      const headerPage = new HeaderPage(page);
+      const accountPage = new AccountPage(page);
 
-    test('Adds item to basket', async ({ page }) => {
-        const basePage = new BasePage(page);
-        const homePage = new HomePage(page);
-        const headerPage = new HeaderPage(page);
-        const kitchenwarePage = new KitchenwarePage(page);
-        const basket = new Basket(page);
-            await homePage.openPage(homePage.url);
-            await expect(page).toHaveTitle('High Quality Japanese Ware Directly from JAPAN – miyake-japan');
-            await headerPage.clickOnKitchenware();
-            await expect(kitchenwarePage.pageTitle).toBeVisible();
+          await homePage.openPage(homePage.url);
+          await headerPage.clickOnAccount();
 
-            await kitchenwarePage.findAsariKnife();
-            await kitchenwarePage.openAsariKnifeCard();
+          await accountPage.enterWrongEmail();
+          await accountPage.enterWrongPassword();
+          await accountPage.pressLoginButton();
+          await expect(accountPage.incorrectDataError).toBeVisible();
+  });
 
-            await expect(kitchenwarePage.asariKnifeImage).toBeVisible();
-            await kitchenwarePage.addAsariKnifeToCard();
+  test('Successful login attempt', async ({ page}) => {
+      const homePage = new HomePage(page);
+      const headerPage = new HeaderPage(page);
+      const accountPage = new AccountPage(page);
+      const basket = new Basket(page);
 
-            await expect(basket.removeButton).toBeVisible();
-            await expect(basket.increaceQtyButton).toBeVisible();
-            await expect(basket.increaceQtyButton).toBeVisible();
-            await basket.removeAdditionalItem();
-    })
+          await homePage.openPage(homePage.url);
+          await headerPage.clickOnAccount();
 
-    test('Adds item to basket', async ({ page }) => {
-      const basePage = new BasePage(page);
+          await accountPage.enterCorrectEmail();
+          await accountPage.enterCorrectPassword();
+          await accountPage.pressLoginButton();
+          await accountPage.validateSuccessfulLogin(); 
+  });
+
+  test('Adds item to basket', async ({ page }) => {
       const homePage = new HomePage(page);
       const headerPage = new HeaderPage(page);
       const kitchenwarePage = new KitchenwarePage(page);
-      
+      const basket = new Basket(page);
+          await homePage.openPage(homePage.url);
+          // await homePage.closeAnnoyingPopup(); // OPTIONAL - IF PAGE LOADING TAKES TOO LONG, UNCOMMENT THIS LINE
+          await expect(page).toHaveTitle('High Quality Japanese Ware Directly from JAPAN – miyake-japan');
+          await headerPage.clickOnKitchenware();
+          await expect(kitchenwarePage.pageTitle).toBeVisible();
+
+          await kitchenwarePage.findAsariKnife();
+          await kitchenwarePage.openAsariKnifeCard();
+
+          await expect(kitchenwarePage.asariKnifeImage).toBeVisible();
+          await kitchenwarePage.addAsariKnifeToCard();
+
+          await expect(basket.removeButton).toBeVisible();
+          await expect(basket.increaceQtyButton).toBeVisible();
+          await expect(basket.increaceQtyButton).toBeVisible();
+          await basket.removeAdditionalItem();
   });
 
-//     test.skip('adds product to the basket', async ({ page }) => {
-//       await page.goto('https://playwright.dev/');
+  test('Attempt to add the item out of stock', async ({ page}) => {
+      const homePage = new HomePage(page);
+      const headerPage = new HeaderPage(page);
+      const tablewarePage = new TablewarePage(page);
+      const accountPage = new AccountPage(page);
+      const basket = new Basket(page);
 
-//       // Click the get started link.
-//       await page.getByRole('link', { name: 'Get started' }).click();
+          await homePage.openPage(homePage.url);
+          await headerPage.clickOnTableware();
+          await tablewarePage.openTab3();
+          await tablewarePage.openUnavailableItemCard();
+          await homePage.closeDiscountPopup();
+          await tablewarePage.checkThatItemCantBeAdded();
+  })
 
-//       // Expects page to have a heading with the name of Installation.
-//       await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
-//       })   
-// });
+  test('Checking search tool', async ({ page}) => {
+      const homePage = new HomePage(page);
+      const headerPage = new HeaderPage(page);
+      const searchPage = new SearchPage(page);
+      const basket = new Basket(page);
+      const productPage = new ProductPage(page);
 
-// const menuSections = [
-//   { name: 'MUST HAVE', locator: `img[alt="casual effortless men pants"]` },
-//   { name: 'BOTTOMS', locator: 'a[href="/collections/pants"][class^="header__menu-item"]' },
-//   { name: 'TOPS', locator: 'a[href="/collections/tops"][class^="header__menu-item"]' },
-//   { name: 'BASIC', locator: 'a[href="/collections/essentials"][class^="header__menu-item"]' },
-//   { name: 'EMBROIDERED', locator: 'a[href="/collections/embroidered"][class^="header__menu-item"]' },
-//   { name: 'NEW', locator: 'a[href="/collections/new-arrivals"][class^="header__menu-item"]' },
-//   { name: 'CLEARANCE', locator: 'a[href="/collections/clearance"][class^="header__menu-item"]' },
-// ];
+          await homePage.openPage(homePage.url);
+          await headerPage.clickOnSearch();
+          await searchPage.searchForSakeSet();
+          await searchPage.selectSet();
+        //   await expect(page).toHaveURL(searchPage.itemUrl); // ITEM'S URL CONSTANTLY CHANGES, TEMPORARILY COMMENTED THE STEP
+          await homePage.closeDiscountPopup();
+          await productPage.addItemToBasket();
+          await basket.closeBasketModal();
+  })
 
-// test.describe('Menu Section Tests', () => {
-//   test.beforeEach(async ({ page }) => {
-//     await page.goto('https://kidoriman.com/')
-//   });
+  test('Checks that Knives section is empty', async ({ page}) => {
+      const homePage = new HomePage(page);
+      const headerPage = new HeaderPage(page);
+      const knivesPage = new KnivesPage(page);
 
-//   for (const section of menuSections) {
-//     test(`Check ${section.name} section`, async ({ page }) => {
-//       await page.click(section.locator);
-//       const title = await page.title();
-//       expect(title.toLowerCase()).toContain(section.name.toLowerCase());
-//     });
-  // }
-// });
+          await homePage.openPage(homePage.url);
+        //   await homePage.closeAnnoyingPopup(); // OPTIONAL, FOR SLOW INTERNET
+          await headerPage.clickOnKnives();
+          await knivesPage.assertListIsEmpty();
+          await knivesPage.navigateToMainPage();
+          await expect(page).toHaveURL(homePage.url);
+  })
+
+  test.only('Checks blog page', async ({ page }) => {
+      const homePage = new HomePage(page);
+      const headerPage = new HeaderPage(page);
+      const knivesPage = new KnivesPage(page);
+      const blogPage = new BlogPage(page);
+      const footerPage = new FooterPage(page);
+
+          await homePage.openPage(homePage.url);
+        //   await homePage.closeAnnoyingPopup(); // OPTIONAL, FOR SLOW INTERNET
+          await headerPage.clickOnBlog();
+          await blogPage.openMainArticle();
+          await blogPage.openLinkToProduct();
+          await expect(page).toHaveURL(blogPage.openedProductUrl);
+
+          await headerPage.clickOnBlog();
+        //   await footerPage.scrollThroughTheWholePage();
+          await blogPage.findButenKlinArticle();
+          await blogPage.checkButenKlinArticle();
+  })
+
+  test('Checks links in the footer', async ({ page }) => {
+      const homePage = new HomePage(page);
+      const footerPage = new FooterPage(page);
+        
+          await homePage.openPage(homePage.url);
+          await footerPage.clickOnSearchButton();
+          await expect(page).toHaveURL(footerPage.searchPageURL);
+
+          await footerPage.clickOnContactButton();
+          await expect(page).toHaveURL(footerPage.contactPageURL);
+
+          await footerPage.clickOnRefundButton();
+          await expect(page).toHaveURL(footerPage.refundPageURL);
+
+          await footerPage.clickOnPrivacyButton();
+          await expect(page).toHaveURL(footerPage.privacyPolicyPageURL);
+
+          await footerPage.clickOnAboutButton();
+          await expect(page).toHaveURL(footerPage.aboutUsPageURL);
+  });
+
+  test('Checks filters', async ({ page }) => {
+      const homePage = new HomePage(page);
+      const headerPage = new HeaderPage(page);
+      const craftsmenPage = new CraftsmenPage(page);
+      const tableWare = new TablewarePage(page);
+      const filterPage = new FiltersPage(page);
+      const footerPage = new FooterPage(page);
+      const basket = new Basket(page);
+
+          await homePage.openPage(homePage.url);
+          await headerPage.clickOnCraftsmen();
+          await homePage.closeDiscountPopup();
+
+          await filterPage.useSortFilter();
+          await filterPage.sortFromOldToNew();
+        //   await craftsmenPage.checkFirstItem();
+          await craftsmenPage.clickOnFirstItem();
+          await craftsmenPage.addItemToCard();
+          await basket.closeBasketModal();
+
+          await headerPage.clickOnTableware();
+          await filterPage.useFilterButton();
+          await filterPage.sortByBlackColor();
+          await filterPage.applyFilters();
+          await tableWare.openBlackPlateItem();
+          await tableWare.addItemToCard();
+
+          await basket.validateCheckoutPrice();
+  })
+
+    // ATTENTION: THIS TEST MAY FAIL BECAUSE OF ANTIFRAUD
+
+    test('Registers a user', async ({ page}) => {
+        const homePage = new HomePage(page);
+        const headerPage = new HeaderPage(page);
+        const accountPage = new AccountPage(page);
+        const registerPage = new RegisterPage(page);
+        const basket = new Basket(page);
+  
+            await homePage.openPage(homePage.url);
+            await homePage.closeAnnoyingPopup();
+            await headerPage.clickOnAccount();
+            await accountPage.clickToCreateNewAcc();
+            await registerPage.enterName();
+            await registerPage.enterSurname();
+            await registerPage.enterEmail();
+            await registerPage.enterPassword();
+            await registerPage.pressCreateAccount();
+  
+            await headerPage.clickOnAccount();
+            await accountPage.validateSuccessfulLogin();
+    })
+});

@@ -4,23 +4,28 @@ import { BasePage } from './basePage';
 export class CraftsmenPage extends BasePage {
     readonly page: Page;
     public url: string = 'https://miyakeceramics.com/collections/keizan-kiln';
-    private field: Locator;
-    private field2: Locator;
-    private field3: Locator;
-    private field4: Locator;
+
+    private oldestItem: Locator;
+    private addItemToCardButton: Locator;
 
     constructor(page: Page) {
         super(page);
         this.page = page;
-        this.field = page.locator('');
-        this.field2 = page.locator('');
-        this.field3 = page.locator('');
-        this.field4 = page.locator('');
+        this.oldestItem = page.locator('img[data-image-id="18772590067879"]');
+        this.addItemToCardButton = page.locator('button[type="submit"][class^="wsgRedirectCart"]');
     }
 
-async function1 () {
-    await this.field.fill('');
-    await this.field2.click();
+async checkFirstItem () {
+    await expect(this.oldestItem).toBeVisible();
+}
+
+async clickOnFirstItem () {
+    await this.oldestItem.scrollIntoViewIfNeeded();
+    await this.oldestItem.click();
+}
+
+async addItemToCard() {
+    await this.addItemToCardButton.click();
 }
 
 }
