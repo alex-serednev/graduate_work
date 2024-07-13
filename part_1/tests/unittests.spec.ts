@@ -101,7 +101,7 @@ describe('Math operations test', () => {
         test('should throw error for empty array', () => {
             expect(() => mathOperations.min([])).toThrow('Array is empty');
         });
-    });
+        });
 
     describe('average', () => {
         test('should return 4.5 for array [1, 5, 9, 3]', () => {
@@ -142,7 +142,5 @@ describe('Math operations test', () => {
         test('should return 0 for number 0', () => {
             expect(mathOperations.reverseNumber(0)).toBe(0);
         });
-    });
-    })
-})
-});
+    })});
+})});
