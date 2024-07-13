@@ -27,5 +27,4 @@ export class SearchPage extends BasePage {
     async selectSet() {
         await this.itemLocator.click();
     }
-
 };

@@ -70,12 +70,4 @@ export class RegisterPage {
     async pressCreateAccount () {
         await this.createMyAccButton.click();
     }
-
-    // async validateSuccessfulLogin () {
-    //     await expect(this.greetingAfterLogin).toHaveText(this.welcomeMessage);
-    // }
-
-    // async clickToCreateNewAcc () {
-    //     await this.createNewAccButton.click();
-    // }
 };

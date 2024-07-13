@@ -23,5 +23,4 @@ export class BasePage {
     async getPageTitle() {
         return this.page.title()
     }
-
-}
+};

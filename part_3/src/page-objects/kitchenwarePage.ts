@@ -29,10 +29,4 @@ export class KitchenwarePage extends BasePage {
     async addAsariKnifeToCard () {
         await this.addItemButton.click();
     }
-
-// async function1 () {
-//     await this.field.fill('');
-//     await this.field2.click('');
-// }
-
-}
+};

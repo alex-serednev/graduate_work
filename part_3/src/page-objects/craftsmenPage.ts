@@ -27,5 +27,4 @@ async clickOnFirstItem () {
 async addItemToCard() {
     await this.addItemToCardButton.click();
 }
-
-}
+};
