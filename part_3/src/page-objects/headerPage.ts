@@ -35,8 +35,7 @@ export class HeaderPage extends BasePage {
                 this.aboutLink = page.locator('a[href^="/pages/about-miyake"]');
                 this.blogLink = page.locator('a[href="/blogs/news"][class="Link Link--secondary"]'); // ^ Collapsible__Button
                 this.contactLink = page.locator('a[href^="/pages/contact"][class^="Collapsible__Button"]');
-                // this.closeWelcomePopup = page.locator('svg[xmlns="http://www.w3.org/2000/svg"] > title[id="title-Close dialog 1"]');
-    }
+    };
 
     async clickOnKitchenware () {
         await this.kitchenwareLink.click();

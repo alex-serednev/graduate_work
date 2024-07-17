@@ -7,8 +7,6 @@ export class RegisterPage {
     public url: string;
     private enterEmailField: Locator;
     private enterPasswordField: Locator;
-    // private enterLoginButton: Locator;
-    // private greetingAfterLogin: Locator;
     public createNewAccButton: Locator;
     public nameField: Locator;
     public surnameField: Locator;
@@ -28,9 +26,7 @@ export class RegisterPage {
         this.page = page;
         this.enterEmailField = page.locator('input[name="customer[email]"]');
         this.enterPasswordField = page.locator('input[name="customer[password]"]');
-        // this.enterLoginButton = page.locator('//*[@id="customer_login"]/button'); 
         this.incorrectDataError = page.locator('p[class="Form__Alert Alert Alert--error"]');
-        // this.greetingAfterLogin = page.locator('p.SectionHeader__Description');
         this.createNewAccButton = page.locator('');
         this.nameField = page.locator('input[name="customer[first_name]"]');
         this.surnameField = page.locator('input[name="customer[last_name]"]');

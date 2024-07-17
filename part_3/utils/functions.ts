@@ -1,6 +1,6 @@
 function generateRandomPass(): string {
     let pass: string = '';
-    let str: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +'abcdefghijklmnopqrstuvwxyz0123456789@#$';
+    const str: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +'abcdefghijklmnopqrstuvwxyz0123456789@#$';
 
     for (let i: number = 1; i <= 10; i++) {
         let char: number = Math.floor(Math.random()
@@ -12,7 +12,7 @@ function generateRandomPass(): string {
 };
 
 function findRandomNumber(lowerBound: number, upperBound: number): number {
-    let result: number = Math.random() * (upperBound - lowerBound) + lowerBound;
+    const result: number = Math.random() * (upperBound - lowerBound) + lowerBound;
     return (Math.round(result));
 };
 
@@ -24,8 +24,8 @@ function generateRandomUserMail() {
     return email };
 
 function createTestEmail (): string {
-    let uniqueNumber: number = findRandomNumber(10, 10000)
-    let accessibleEmailWithUniqueNum: string = `+${uniqueNumber}@gmail.com`
+    const uniqueNumber: number = findRandomNumber(10, 10000)
+    const accessibleEmailWithUniqueNum: string = `svante.jf+${uniqueNumber}@gmail.com`
     return accessibleEmailWithUniqueNum;
 };
 

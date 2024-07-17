@@ -32,4 +32,4 @@ export class ProductPage extends BasePage {
     async removeAdditionalItem () {
         await this.reduceQtyButton.click();
     }
-}
+};

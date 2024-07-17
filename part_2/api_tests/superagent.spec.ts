@@ -1,8 +1,8 @@
 import {expect, jest, test} from '@jest/globals';
 import superagent from 'superagent';
 
-import * as data from './utils/constants';
-import * as funct from './utils/functions';
+import * as data from '../utils/constants';
+import * as funct from '../utils/functions';
 
 describe('Check GET /api/users/{id} request', () => {
     test('OK checks 200 response', async () => {
@@ -115,8 +115,6 @@ describe('Check POST Request /api/register', () => {
     
     test('should return error message "Missing email or username"', async () => {
         const res = await funct.perform_post_request('https://reqres.in/api/register', funct.create_new_user_without_pass());
-        // console.log(res.body);
-        // console.log(res.response)
         expect(res.response._body.error).toBe('Missing email or username');
     })
 });
@@ -129,7 +127,6 @@ describe('Test Post Request https://reqres.in/api/login', () => {
     
     test('should check that response has token and id', async () => {
         const res = await funct.perform_post_request('https://reqres.in/api/login', data.dataForSuccessfulLogin)
-        // console.log(res);
         expect(res.body).toHaveProperty('token');
     });
 

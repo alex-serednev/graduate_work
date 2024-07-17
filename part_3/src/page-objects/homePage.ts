@@ -15,7 +15,6 @@ export class HomePage extends BasePage {
         this.getStartedLink = page.locator('');
         this.discountPopup = page.locator('aside.NewsletterPopup > button.NewsletterPopup__Close');
         this.closePopupButton = page.locator('button[tabindex="0"] > svg[xmlns="http://www.w3.org/2000/svg"]'); 
-        // another loc: svg[xmlns="http://www.w3.org/2000/svg"] > title[id="title-Close dialog 1"]
     }
 
     async closeDiscountPopup () {

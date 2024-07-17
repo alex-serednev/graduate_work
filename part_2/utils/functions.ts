@@ -6,8 +6,6 @@ export async function perform_get_request(url: any): Promise<any> {
         const user_data = await superagent.get(url);
         return user_data;
     } catch (err: any) {
-        // console.log(err.message);
-        // throw err;
         return(err)
     }
 };
@@ -21,8 +19,6 @@ export async function perform_post_request(url: any, body: any): Promise<any> {
             .send(body);
         return response;
     } catch (err: any) {
-        // console.log(err.message);
-        // throw err;
         return(err)
     } 
 };
@@ -36,8 +32,6 @@ export async function perform_patch_request(url: any, body: any): Promise<any> {
             .send(body);
         return response;
     } catch (err: any) {
-        // console.log(err.message);
-        // throw err;
         return(err)
     } 
 };
@@ -51,8 +45,6 @@ export async function perform_put_request(url: any, body: any): Promise<any> {
             .send(body);
         return response;
     } catch (err: any) {
-        // console.log(err.message);
-        // throw err;
         return(err)
     } 
 };
@@ -65,8 +57,6 @@ export async function perform_delete_request(url: any): Promise<any> {
             .set("Accept", "application/json")
         return response;
     } catch (err: any) {
-        // console.log(err.message);
-        // throw err;
         return(err)
     } 
 }

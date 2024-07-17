@@ -18,7 +18,7 @@ import { FooterPage } from '../src/page-objects/footerPage';
 test.describe.configure({mode: "serial", retries: 0})
 test.describe('Finding and saving product', () => {
 
-    test('Failed login attempt', async ({ page }) => {
+    test.only('Failed login attempt', async ({ page }) => {
       const homePage = new HomePage(page);
       const headerPage = new HeaderPage(page);
       const accountPage = new AccountPage(page);
@@ -53,7 +53,7 @@ test.describe('Finding and saving product', () => {
       const kitchenwarePage = new KitchenwarePage(page);
       const basket = new Basket(page);
           await homePage.openPage(homePage.url);
-          // await homePage.closeAnnoyingPopup(); // OPTIONAL - IF PAGE LOADING TAKES TOO LONG, UNCOMMENT THIS LINE
+          // await homePage.closeAnnoyingPopup(); // IF PAGE LOADING TAKES TOO LONG, UNCOMMENT THIS LINE
           await expect(page).toHaveTitle('High Quality Japanese Ware Directly from JAPAN – miyake-japan');
           await headerPage.clickOnKitchenware();
           await expect(kitchenwarePage.pageTitle).toBeVisible();
@@ -96,7 +96,6 @@ test.describe('Finding and saving product', () => {
           await headerPage.clickOnSearch();
           await searchPage.searchForSakeSet();
           await searchPage.selectSet();
-        //   await expect(page).toHaveURL(searchPage.itemUrl); // ITEM'S URL CONSTANTLY CHANGES, TEMPORARILY COMMENTED THE STEP
           await homePage.closeDiscountPopup();
           await productPage.addItemToBasket();
           await basket.closeBasketModal();
@@ -108,14 +107,14 @@ test.describe('Finding and saving product', () => {
       const knivesPage = new KnivesPage(page);
 
           await homePage.openPage(homePage.url);
-        //   await homePage.closeAnnoyingPopup(); // OPTIONAL, FOR SLOW INTERNET
+        //   await homePage.closeAnnoyingPopup(); // OPTIONAL
           await headerPage.clickOnKnives();
           await knivesPage.assertListIsEmpty();
           await knivesPage.navigateToMainPage();
           await expect(page).toHaveURL(homePage.url);
   })
 
-  test.only('Checks blog page', async ({ page }) => {
+  test('Checks blog page', async ({ page }) => {
       const homePage = new HomePage(page);
       const headerPage = new HeaderPage(page);
       const knivesPage = new KnivesPage(page);
@@ -130,7 +129,6 @@ test.describe('Finding and saving product', () => {
           await expect(page).toHaveURL(blogPage.openedProductUrl);
 
           await headerPage.clickOnBlog();
-        //   await footerPage.scrollThroughTheWholePage();
           await blogPage.findButenKlinArticle();
           await blogPage.checkButenKlinArticle();
   })
@@ -156,7 +154,7 @@ test.describe('Finding and saving product', () => {
           await expect(page).toHaveURL(footerPage.aboutUsPageURL);
   });
 
-  test('Checks filters', async ({ page }) => {
+  test.only('Checks filters', async ({ page }) => {
       const homePage = new HomePage(page);
       const headerPage = new HeaderPage(page);
       const craftsmenPage = new CraftsmenPage(page);
@@ -171,7 +169,6 @@ test.describe('Finding and saving product', () => {
 
           await filterPage.useSortFilter();
           await filterPage.sortFromOldToNew();
-        //   await craftsmenPage.checkFirstItem();
           await craftsmenPage.clickOnFirstItem();
           await craftsmenPage.addItemToCard();
           await basket.closeBasketModal();
