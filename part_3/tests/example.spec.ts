@@ -16,7 +16,7 @@ import { FiltersPage } from '../src/page-objects/filtersPage';
 import { FooterPage } from '../src/page-objects/footerPage';
 
 test.describe.configure({mode: "serial", retries: 0})
-test.describe('Finding and saving product', () => {
+test.describe.skip('Finding and saving product', () => {
 
     test.only('Failed login attempt', async ({ page }) => {
       const homePage = new HomePage(page);

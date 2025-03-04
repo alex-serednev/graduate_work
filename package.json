@@ -4,7 +4,6 @@
   "description": "automated tests written using JS and some other libraries",
   "main": "index_ts.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "test_jest": "jest --config='part_1/jest.config.js'",
     "test_superagent": "jest --config='part_2/jest.config.js'"
   },
@@ -15,7 +14,9 @@
     "typescript": "^5.5.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.50.1",
     "@types/jest": "^29.5.12",
+    "@types/node": "^22.13.8",
     "@types/superagent": "^8.1.7",
     "jest": "^29.7.0",
     "superagent": "^9.0.2",

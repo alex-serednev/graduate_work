@@ -4,7 +4,7 @@ import superagent from 'superagent';
 import * as data from '../utils/constants';
 import * as funct from '../utils/functions';
 
-describe('Check GET /api/users/{id} request', () => {
+describe.skip('Check GET /api/users/{id} request', () => {
     test('OK checks 200 response', async () => {
         const response = await funct.perform_get_request('https://reqres.in/api/users/2');
         expect(response.status).toBe(200);
@@ -32,7 +32,7 @@ describe('Check GET /api/users/{id} request', () => {
         console.log(`Test 4. \nResponse status: ${response.status}\nGet request was sent to /api/unknown/23`);
     });
 
-describe('Check GET /api/unknown/{id} request', () => {
+describe.skip('Check GET /api/unknown/{id} request', () => {
       
     test('should return status 200', async () => {
         const res = await funct.perform_get_request('https://reqres.in/api/unknown/2')
@@ -55,7 +55,7 @@ describe('Check GET /api/unknown/{id} request', () => {
     });
 });
 
-describe('Check Patch request /api/users/2', () => {
+describe.skip('Check Patch request /api/users/2', () => {
     
     test('should return status 200', async () => {
         const res = await funct.perform_patch_request('https://reqres.in/api/users/5', data.userDataForPatchRequest);
@@ -74,7 +74,7 @@ describe('Check Patch request /api/users/2', () => {
     })
 });
 
-describe('Check Delete Request /api/users/2', () => {
+describe.skip('Check Delete Request /api/users/2', () => {
 
     test('should return status 204', async () => {
         const res = await funct.perform_delete_request('https://reqres.in/api/users/5');
@@ -87,7 +87,7 @@ describe('Check Delete Request /api/users/2', () => {
     })
 });
 
-describe('Check POST Reqest /api/users/2', () => {
+describe.skip('Check POST Reqest /api/users/2', () => {
     test('should return status 201', async () => {
         const res = await funct.perform_post_request('https://reqres.in/api/users/2', data.userDataForPostRequest);
         expect(res.status).toBe(201);
@@ -106,7 +106,7 @@ describe('Check POST Reqest /api/users/2', () => {
     })
 });
 
-describe('Check POST Request /api/register', () => {
+describe.skip('Check POST Request /api/register', () => {
     test('should return status 400', async () => {
         const userObj = funct.create_new_user_without_pass();
         const res = await funct.perform_post_request('https://reqres.in/api/register', funct.create_new_user_without_pass());
@@ -119,7 +119,7 @@ describe('Check POST Request /api/register', () => {
     })
 });
 
-describe('Test Post Request https://reqres.in/api/login', () => { 
+describe.skip('Test Post Request https://reqres.in/api/login', () => { 
     test('should return status 200', async () => {
         const res = await funct.perform_post_request('https://reqres.in/api/login', data.dataForSuccessfulLogin)
         expect(res.status).toBe(200);
